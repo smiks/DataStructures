@@ -29,6 +29,9 @@ class LinkedList(object):
 
         return s
 
+    def __len__(self):
+        return self.size
+
     def append(self, value):
         """
             Append is O(1)
@@ -88,6 +91,39 @@ class LinkedList(object):
         node.previous.next = new_node
 
         self.size += 1
+
+    def remove(self, node):
+
+        if self.size == 0:
+            raise IndexError("Trying to remove element from empty list.")
+
+        if self.size == 1:
+            self.head = None
+            self.tail = None
+            self.size = 0
+            return
+
+        # check if head
+        if node.previous is None:
+            self.head = node.next
+            node.next.previous = None
+            node.next = None
+            self.size -= 1
+            return
+
+        # check if tail
+        if node.next is None:
+            node.previous.next = None
+            node.previous = None
+            self.size -= 1
+            return
+
+        # in between
+        node.next.previous = node.previous
+        node.previous.next = node.next
+        node.previous = None
+        node.next = None
+        self.size -= 1
 
     def search(self, value):
         node = self.head
@@ -150,3 +186,11 @@ if __name__ == "__main__":
 
     for e in ll.traverse():
         print("E: {0}" . format(e.value))
+
+    ll.remove(ll.search(999))
+    print(ll)
+    ll.remove(ll.search(123))
+    print(ll)
+    ll.remove(ll.search(8))
+    print(ll)
+    print("Size: {0} " . format(len(ll)))
