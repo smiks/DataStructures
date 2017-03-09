@@ -113,6 +113,7 @@ class LinkedList(object):
 
         # check if tail
         if node.next is None:
+            self.tail = node.previous
             node.previous.next = None
             node.previous = None
             self.size -= 1
