@@ -3,4 +3,5 @@
 I've played a little in python. Nothing special.
 
 List (implemented using python array) <br>
-DoublyLinkedList
+LinkedList (DoublyLinkedList) <br>
+Queue (Single-ended Queue)<br> 
