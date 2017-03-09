@@ -34,7 +34,7 @@ class LinkedList(object):
 
     def append(self, value):
         """
-            Append is O(1)
+            append is O(1)
         """
         node = Node(value)
 
@@ -50,7 +50,7 @@ class LinkedList(object):
 
     def pop(self):
         """
-            Pop is O(1)
+            pop is O(1)
         """
         node = self.tail
         self.tail = self.tail.previous
@@ -58,9 +58,21 @@ class LinkedList(object):
         self.size -= 1
         return node
 
+    def peek_first(self):
+        """
+            peek_first is O(1)
+        """
+        return self.head
+
+    def peek_last(self):
+        """
+            peek_last is O(1)
+        """
+        return self.tail
+
     def prepend(self, value):
         """
-            Prepend is O(1)
+            prepend is O(1)
         """
         new_node = Node(value)
         self.head.previous = new_node
@@ -71,7 +83,7 @@ class LinkedList(object):
 
     def insert(self, value, position):
         """
-            Insert is O(n)
+            insert is O(n)
         """
         if position >= self.size:
             raise IndexError("Index out of bounds (insert at [{0}])!" . format(position))
@@ -125,6 +137,14 @@ class LinkedList(object):
         node.previous = None
         node.next = None
         self.size -= 1
+
+    def empty(self):
+        self.head = None
+        self.tail = None
+        self.size = 0
+
+    def is_empty(self):
+        return self.size == 0
 
     def search(self, value):
         node = self.head
