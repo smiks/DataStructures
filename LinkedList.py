@@ -6,7 +6,6 @@ class Node(object):
         self.value = value
         self.next = None
         self.previous = None
-        self.position = None
 
 
 class LinkedList(object):
@@ -31,55 +30,64 @@ class LinkedList(object):
         return s
 
     def append(self, value):
+        """
+            Append is O(1)
+        """
         node = Node(value)
 
         if self.head is None:
             self.head = node
-            self.head.position = 0
 
         else:
             node.previous = self.tail
             self.tail.next = node
-            node.position = node.previous.position + 1
 
         self.tail = node
         self.size += 1
 
     def pop(self):
+        """
+            Pop is O(1)
+        """
         node = self.tail
         self.tail = self.tail.previous
         self.tail.next = None
         self.size -= 1
         return node
 
+    def prepend(self, value):
+        """
+            Prepend is O(1)
+        """
+        new_node = Node(value)
+        self.head.previous = new_node
+        new_node.previous = None
+        new_node.next = self.head
+        self.head = new_node
+        self.size += 1
+
     def insert(self, value, position):
         """
-            Insert is O(n) because it has to update positions
+            Insert is O(n)
         """
         if position >= self.size:
             raise IndexError("Index out of bounds (insert at [{0}])!" . format(position))
 
         if position == 0:
-            raise IndexError("Can not insert at position 0. Use prepend function instead.")
-        new_node = Node(value)
+            raise IndexError("Trying to insert at position 0. Use prepend function instead.")
 
+        new_node = Node(value)
         node = self.head
-        while node.position < position:
+        start_pos = 0
+        while start_pos < position:
             node = node.next
+            start_pos += 1
 
         new_node.next = node
         new_node.previous = node.previous
         node.previous.next = new_node
-        tmp_pos = new_node.previous.position + 1
-        new_node.position = tmp_pos
-        node = new_node
-        while node is not None:
-            node.position = tmp_pos
-            node = node.next
-            tmp_pos += 1
 
         self.size += 1
-
 
     def search(self, value):
         node = self.head
@@ -135,8 +143,10 @@ if __name__ == "__main__":
     print(ll)
 
     print()
-    ll.insert(999, 3)
+    ll.insert(999, 1)
+    print(ll)
+    ll.prepend(123)
     print(ll)
 
     for e in ll.traverse():
-        print("E: {0} P: {1} " . format(e.value, e.position))
+        print("E: {0}" . format(e.value))
