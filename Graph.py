@@ -34,6 +34,21 @@ class Graph:
     def get_distance(self, from_node, to_node):
         return self.distances[from_node, to_node]
 
+    def get_distances(self):
+        """
+            Returns list of distances.
+            [
+                (node1, node2, distance)...
+            ]
+        """
+
+        distances = []
+        for k, v in self.distances.items():
+            tmp = (k[0], k[1], v)
+            distances.append(tmp)
+
+        return distances
+
     def update_distance(self, from_node, to_node, new_distance):
         self.distances[from_node, to_node] = new_distance
 
@@ -122,6 +137,13 @@ class Graph:
 
 
 
+
+
+
+
+
+
+
 if __name__ == "__main__":
 
     print("Directed Graph")
@@ -130,6 +152,7 @@ if __name__ == "__main__":
     graph.add_edge(0, 1, 3)
     graph.add_edge(0, 3, 1)
     graph.add_edge(0, 2, 1)
+    graph.add_edge(0, 4, 10)
     graph.add_edge(3, 4, 2)
 
     print(graph)
@@ -147,6 +170,9 @@ if __name__ == "__main__":
 
     d = graph.get_distance(3, 4)
     print("Distance between node 3 and 4: {} " . format(d))
+
+    print("Distances: ")
+    print(graph.get_distances())
 
     path = graph.get_path(0, 4)
     print("Path from 0 to 4: {}" . format(path))
@@ -177,6 +203,7 @@ if __name__ == "__main__":
     graph.add_edge(0, 1, 3)
     graph.add_edge(0, 3, 1)
     graph.add_edge(0, 2, 1)
+    graph.add_edge(0, 4, 10)
     graph.add_edge(3, 4, 2)
 
     print(graph)
@@ -194,6 +221,9 @@ if __name__ == "__main__":
 
     d = graph.get_distance(3, 4)
     print("Distance between node 3 and 4: {} ".format(d))
+
+    print("Distances: ")
+    print(graph.get_distances())
 
     path = graph.get_path(0, 4)
     print("Path from 0 to 4: {}" . format(path))
